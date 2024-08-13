@@ -51,7 +51,7 @@ public:
     {
         main_texture_id_ ^= 1;
         if (main_texture_id_ == 1){
-            clouds_intensity_ = 0.05;
+            clouds_intensity_ = 0.01;
             light_rgb_[0] = 0.98;
             light_rgb_[1] = 0.859;
             light_rgb_[2] = 0.0;
