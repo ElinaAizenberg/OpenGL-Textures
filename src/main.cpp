@@ -33,15 +33,16 @@ int main() {
         return -1;
     }
 
-    Earth earth = Earth("/home/elina/MyProjects/object_files/earth.obj", "/home/elina/MyProjects/OpenGl/project_4/shaders/earth.vert", "/home/elina/MyProjects/OpenGl/project_4/shaders/earth.frag");
+    Earth earth = Earth("../objects/earth.obj", "../shaders/earth.vert", "../shaders/earth.frag");
     earth.loadObjectBuffers();
-    Plane plane = Plane("/home/elina/MyProjects/object_files/f-5.obj", "/home/elina/MyProjects/OpenGl/project_4/shaders/plane.vert", "/home/elina/MyProjects/OpenGl/project_4/shaders/plane.frag");
+    Plane plane = Plane("../objects/14082_WWII_Plane_Japan_Kawasaki_Ki-61_v1_L2.obj", "../shaders/plane.vert", "../shaders/plane.frag");
     plane.loadObjectBuffers();
+    Skybox skybox = Skybox("../shaders/skybox.vert", "../shaders/skybox.frag");
 
     while (!glfwWindowShouldClose(window))
     {
         drawingLib.getWindowSize(window);
-        drawingLib.drawScene(window, plane, earth);
+        drawingLib.drawScene(window, plane, earth, skybox);
     }
 
     glfwDestroyWindow(window);

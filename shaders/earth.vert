@@ -18,6 +18,5 @@ void main()
     Normal = mat3(transpose(inverse(model))) * aNormal;
 
     gl_Position = projection * view * model * vec4(aPos, 1.0);
-    TexCoords = aTexCoords;
-
+    TexCoords = aTexCoords;  // the 2nd vertex attribute, passed to fragment shader
 };

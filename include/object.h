@@ -18,7 +18,6 @@ public:
     void loadObjectFile(const std::string& filepath);
 
 protected:
-    float rgb_[3] = {1,1,1};
     float scale_{1};
 
     std::vector<GLfloat> vertices_{};
@@ -37,11 +36,10 @@ class Plane : public Object{
 public:
     Plane(const std::string& obj_filepath, const std::string& shader_vert, const std::string& shader_frag) : Object(obj_filepath, shader_vert, shader_frag){}
     void draw(glm::mat4 &view, glm::mat4 &projection) override;
+
 private:
     float angle_{0.5};
-    float scale_{0.35};
-
-
+    float scale_{1};
 };
 
 class Earth : public Object{
@@ -53,7 +51,7 @@ public:
     {
         main_texture_id_ ^= 1;
         if (main_texture_id_ == 1){
-            clouds_intensity_ = 0.01;
+            clouds_intensity_ = 0.05;
             light_rgb_[0] = 0.98;
             light_rgb_[1] = 0.859;
             light_rgb_[2] = 0.0;
@@ -71,19 +69,81 @@ private:
     GLuint TBO_{};
     float angle_{0.2};
 
-    std::vector<Texture> textures_ = {Texture("/home/elina/MyProjects/object_files/8k_earth_daymap.jpg"),
-                                      Texture("/home/elina/MyProjects/object_files/8k_earth_nightmap.jpg"),
-                                      Texture("/home/elina/MyProjects/object_files/8k_earth_clouds.jpg")};
+    std::vector<Texture2D> textures_ = {Texture2D("../textures/8k_earth_daymap.jpg"),
+                                        Texture2D("../textures/8k_earth_nightmap.jpg"),
+                                        Texture2D("../textures/8k_earth_clouds.jpg")};
 
     int main_texture_id_{0};
 
     float light_rgb_[3] = {0.988, 0.945, 0.784};
     float clouds_intensity_ = 0.25f;
-    float diffuse_ = 1.2f;
-
+    float diffuse_ = 1.0f;
 
 };
 
+class Skybox {
+public:
+    Skybox(const std::string& shader_vert, const std::string& shader_frag);
+    void draw(glm::mat4 &view, glm::mat4 &projection);
+
+private:
+    GLuint VAO_{};
+    GLuint VBO_{};
+    ShaderProgram shaderProgram_;
+
+    Texture3D skybox_texture_ = Texture3D({"../textures/sky/right.jpg",
+                                           "../textures/sky/left.jpg",
+                                           "../textures/sky/top.jpg",
+                                           "../textures/sky/bottom.jpg",
+                                           "../textures/sky/back.jpg",
+                                           "../textures/sky/front.jpg"});
+
+    std::vector<GLfloat> vertices_ =
+            {
+            -1.0f,  1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            -1.0f,  1.0f, -1.0f,
+            1.0f,  1.0f, -1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+            1.0f, -1.0f,  1.0f
+    };
+
+};
 
 
 #endif //PROJECT_4_OBJECT_H

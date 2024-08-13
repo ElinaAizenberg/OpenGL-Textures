@@ -8,8 +8,8 @@ if(POLICY CMP0072)
     cmake_policy(SET CMP0072 OLD)
 endif()
 
-set(GLAD /home/elina/MyProjects/libs/glad)
-set(EXTERNAL_LIB_DIR /home/elina/MyProjects/libs)
+set(GLAD /path_to_directory/libs/glad)
+set(EXTERNAL_LIB_DIR /path_to_directory/libs)
 
 # Add source files from the project
 set(PROJECT_SRC
@@ -24,7 +24,6 @@ set(PROJECT_SRC
 # Add ImGui source files
 set(EXTERNAL_SRC
         ${EXTERNAL_LIB_DIR}/tiny_obj_loader/tiny_obj_loader.cc
-        ${EXTERNAL_LIB_DIR}/dds_loader/dds_loader.cpp
 
 )
 
@@ -37,7 +36,6 @@ include_directories(include)
 
 include_directories(${GLAD}/include
         ${EXTERNAL_LIB_DIR}/tiny_obj_loader
-        ${EXTERNAL_LIB_DIR}/dds_loader
         ${EXTERNAL_LIB_DIR}/stb_image_write)
 
 

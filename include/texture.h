@@ -8,14 +8,18 @@
 
 class Texture{
 public:
-    explicit Texture(const std::string& filepath);
     GLuint getTexture() const;
-
-private:
+protected:
     GLuint texture_id_{0};
-
-
-
 };
 
+class Texture2D: public Texture{
+public:
+    explicit Texture2D(const std::string& filepath);
+};
+
+class Texture3D: public Texture{
+public:
+    explicit Texture3D(const std::vector<std::string>& filepaths);
+};
 #endif //PROJECT_4_TEXTURE_H
